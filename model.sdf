@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="lidar">
+  
+    <link name="estructura">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+      <pose>0.469 -0.5 0.5155 0 0 0</pose>
+        <mass>3.527</mass>
+        <inertia>
+          <ixx>1.068</ixx>
+          <iyy>1.068</iyy>
+          <izz>1.418</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="estructura_collision">
+      <pose>0.469 -0.5 0.5155 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.0405 1.0 1.011</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="estructura_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://RPLiDAR/meshes/estructura.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    
+    <link name="Motor1">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+      	<pose>-0.0345 -0.5225 1.0475 0 0 0</pose>
+        <mass>0.048386</mass>
+        <inertia>
+          <ixx>0.000013</ixx>
+          <iyy>0.000016</iyy>
+          <izz>0.000008</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="Motor1_collision">
+      <pose>-0.0345 -0.5225 1.0475 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.037 0.032 0.053</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="Motor1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://RPLiDAR/meshes/Motor.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+
+    <link name="Sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+      	<pose>-0.0345 -0.5225 1.0955 0 0 0</pose>
+        <mass>0.019</mass>
+        <inertia>
+          <ixx>0.000005</ixx>
+          <iyy>0.000007</iyy>
+          <izz>0.000010</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="Sensor_collision">
+        <pose>-0.0345 -0.5225 1.1075 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.056 0.056 0.051</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="Sensor_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://RPLiDAR/meshes/Sensor.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      
+      <!-- Sensor --> 
+      <sensor type="lidar" name="sensor">
+        <pose>-0.0345 -0.5225 1.125 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <lidar>
+
+          <scan>
+            <horizontal>
+              <samples>32</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.1415</min_angle>
+              <max_angle>3.1415</max_angle>
+            </horizontal>
+          </scan>
+
+          <range>
+            <min>0.05</min>
+            <max>10</max>
+            <resolution>0.03</resolution>
+          </range>
+          
+        </lidar>
+      </sensor>
+      </link>
+      
+    
+    
+  <!-- Joints -->    
+    <joint type="revolute" name="joint1">
+      <pose>-0.0345 -0.5225 1.021 0 0 0</pose>
+      <parent>estructura</parent>
+      <child>Motor1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.1415</lower>
+          <upper>3.1415</upper>
+        </limit>
+      </axis>
+    </joint>
+    
+    <joint type="revolute" name="joint2">
+      <pose>-0.0345 -0.5225 1.0625 0 0 0</pose>
+      <parent>Motor1</parent>
+      <child>Sensor</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.57</lower>
+          <upper>1.57</upper>
+        </limit>
+      </axis>
+    </joint>
+
+  </model>
+</sdf>
